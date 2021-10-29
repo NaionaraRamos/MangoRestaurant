@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Mango.Services.ProductAPI.Repositories;
 
 namespace Mango.Services.ProductAPI
 {
@@ -32,6 +34,10 @@ namespace Mango.Services.ProductAPI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mango.Services.ProductAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211028013457_AddProductModelToDb")]
-    partial class AddProductModelToDb
+    [Migration("20211029005913_SeedProducts")]
+    partial class SeedProducts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,44 @@ namespace Mango.Services.ProductAPI.Migrations
                     b.HasKey("ProductID");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductID = 1,
+                            CategoryName = "Appetizer",
+                            Description = "Samosa",
+                            ImageUrl = "",
+                            Name = "Samosa",
+                            Price = 15.0
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            CategoryName = "Appetizer 2",
+                            Description = "Samosa 2",
+                            ImageUrl = "",
+                            Name = "Samosa 2",
+                            Price = 16.0
+                        },
+                        new
+                        {
+                            ProductID = 3,
+                            CategoryName = "Appetizer 3",
+                            Description = "Samosa 3",
+                            ImageUrl = "",
+                            Name = "Samosa 3",
+                            Price = 17.0
+                        },
+                        new
+                        {
+                            ProductID = 4,
+                            CategoryName = "Appetizer 4",
+                            Description = "Samosa 4",
+                            ImageUrl = "",
+                            Name = "Samosa 4",
+                            Price = 18.0
+                        });
                 });
 #pragma warning restore 612, 618
         }
