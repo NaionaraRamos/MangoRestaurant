@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Mango.Services.ProductAPI.Models;
 using Mango.Services.ProductAPI.Models.Dto;
+using Mango.Web.Models;
 
 namespace Mango.Services.ProductAPI
 {
