@@ -1,18 +1,18 @@
-using Mango.Services.ProductAPI.DbContexts;
+using AutoMapper;
+using Mango.Services.ShoppingCartAPI.DbContexts;
+using Mango.Services.ShoppingCartAPI.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using AutoMapper;
-using Mango.Services.ProductAPI.Repositories;
-using Microsoft.IdentityModel.Tokens;
 
-namespace Mango.Services.ProductAPI
+namespace Mango.Services.ShoppingCartAPI
 {
     public class Startup
     {
@@ -32,7 +32,7 @@ namespace Mango.Services.ProductAPI
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
             services.AddControllers();
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
@@ -53,7 +53,7 @@ namespace Mango.Services.ProductAPI
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mango.Services.ProductAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mango.Services.ShoppingCartAPI", Version = "v1" });
                 c.EnableAnnotations();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -89,7 +89,7 @@ namespace Mango.Services.ProductAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mango.Services.ProductAPI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mango.Services.ShoppingCartAPI v1"));
             }
             app.UseHttpsRedirection();
             app.UseRouting();

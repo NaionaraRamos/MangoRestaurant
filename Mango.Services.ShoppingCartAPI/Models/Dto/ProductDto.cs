@@ -1,15 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Mango.Services.ProductAPI.Models
+﻿namespace Mango.Services.ShoppingCartAPI.Models.Dto
 {
-    public class Product
+    public class ProductDto
     {
-        [Key]
         public int ProductID { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Range(1, 1000)]
         public double Price { get; set; }
         public string Description { get; set; }
         public string CategoryName { get; set; }
