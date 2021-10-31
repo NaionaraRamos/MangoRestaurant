@@ -10,6 +10,7 @@ using Mango.Web.Services.IServices;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace Mango.Web.Controllers
 {
@@ -58,7 +59,7 @@ namespace Mango.Web.Controllers
             {
                 CartHeader = new CartHeaderDto
                 {
-                    UserId = User.Claims.Where(u => u.Type == "sub")?.FirstORDefault()?.Value
+                    UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value
                 }
             };
 
