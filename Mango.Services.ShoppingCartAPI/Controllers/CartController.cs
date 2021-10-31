@@ -73,7 +73,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                bool IsSuccess = await _cartRepository.RemoveFromCart(cartId;
+                bool IsSuccess = await _cartRepository.RemoveFromCart(cartId);
                 _response.Result = IsSuccess;
             }
             catch (Exception e)
