@@ -1,9 +1,6 @@
 ﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mango.Services.Identity
 {
@@ -35,6 +32,7 @@ namespace Mango.Services.Identity
                     ClientId = "client",
                     ClientSecrets = { new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    //AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
                     AllowedScopes = { "read", "write", "profile" }
                 },
                 new Client
