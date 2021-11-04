@@ -14,12 +14,15 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
     public class CartController : Controller
     {
         private readonly ICartRepository _cartRepository;
+        private readonly ICouponRepository _couponRepository;
         private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
 
-        public CartController(ICartRepository cartRepository)
+        public CartController(ICartRepository cartRepository, IMessageBus messageBus, ICouponRepository couponRepository)
         {
             _cartRepository = cartRepository;
+            _messageBus = messageBus;
+            _couponRepository = couponRepository;
             this._response = new ResponseDto();
         }
 
@@ -129,6 +132,19 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 {
                     return BadRequest();
                 }
+
+                if (!string.IsNullOrEmpty(checkoutHeaderDto.CouponCode))
+                {
+                    CouponDto coupon = await _couponRepository.GetCoupon(checkoutHeaderDto.CouponCode);
+                    if (checkoutHeaderDto.DiscountTotal != coupon.DiscountAmount)
+                    {
+                        _response.IsSuccess = false;
+                        _response.ErrorMessages = new List<string>() { "O preço do cupom mudou." };
+                        _response.DisplayMessage = "O preço do cupom mudou.";
+                        return _response;
+                    }
+                }
+
                 checkoutHeaderDto.CartDetails = cartDto.CartDetails;
                 await _messageBus.PublishMessage(checkoutHeaderDto, "nomeTopicoAzure");
             }
